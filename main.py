@@ -3,8 +3,22 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ValidationError
 import numpy as np
 from sklearn.linear_model import LinearRegression
+import os
 
 app = FastAPI()
+
+#pobieranie zmiennej środowiskowej
+APP_ENV = os.getenv("APP_ENVIRONMENT", "local")
+API_KEY = os.getenv("MY_SECRET_KEY", "not-set")
+
+@app.get("/health")
+def health_check():
+    return {
+        "status": "ok",
+        "mode": "online",
+        "environment": APP_ENV,
+        "key_status": "provided" if API_KEY != "not-set" else "missing"
+    }
 
 #model
 X = np.array([[1], [2], [3], [4], [5]])
@@ -38,7 +52,3 @@ def get_model_info():
         "description": "Model regresji liniowej"
     }
 
-#status serwera
-@app.get("/health")
-def health_check():
-    return {"status": "ok", "mode": "online"}
