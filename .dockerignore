@@ -1,0 +1,20 @@
+#środowiska wirtualne
+venv/
+.venv/
+env/
+
+#Cache Pythona
+**/__pycache__/
+*.pyc
+
+#pliki PyCharma i IDE
+.idea/
+.vscode/
+
+#systemowe śmieci i logi
+.DS_Store
+*.log
+
+#pliki gita
+.git
+.gitignore

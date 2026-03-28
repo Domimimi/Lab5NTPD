@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: ml_api
+    ports:
+      - "8000:8000"
+    networks:
+      - ml_network
+    depends_on:
+      - redis_db
+
+  redis_db:
+    image: "redis:alpine"
+    container_name: ml_redis
+    networks:
+      - ml_network
+
+networks:
+  ml_network:
+    driver: bridge
